@@ -159,27 +159,6 @@ public class MassUpgradeConfigurator extends Item {
         return pos.getX() >= minX && pos.getX() <= maxX && pos.getY() >= minY && pos.getY() <= maxY && pos.getZ() >= minZ && pos.getZ() <= maxZ;
     }
 
-    private void performSingleOperation(Level level, BlockPos pos, Player player) {
-        Upgrade upgradeType = this.getSelectedUpgradeFromInventory(player);
-        if (upgradeType == null) {
-            player.displayClientMessage(Component.translatable("message.mekanism_card.no_upgrade_in_inventory").withStyle(ChatFormatting.RED), true);
-            return;
-        }
-
-        TileComponentUpgrade comp = this.getUpgradeComponent(level, pos);
-        if (comp == null) {
-            player.displayClientMessage(Component.translatable("message.mekanism_card.not_upgradable").withStyle(ChatFormatting.RED), true);
-            return;
-        }
-
-        int amount = this.processUpgrade(comp, upgradeType, player, this.currentMode);
-        if (amount > 0) {
-            this.feedbackDetailed(player, upgradeType, this.currentMode, 1, amount);
-        } else {
-            player.displayClientMessage(Component.translatable("message.mekanism_card.operation.none").withStyle(ChatFormatting.RED), true);
-        }
-    }
-
     public boolean isSelectionModeActive(ItemStack stack) {
         return stack.hasTag() && stack.getTag().getBoolean("SelectionMode");
     }

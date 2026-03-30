@@ -222,17 +222,6 @@ public class MemoryCard extends Item {
         }
     }
 
-    private static int countTotalUpgradeCards(Player player) {
-        int count = 0;
-        for (ItemStack stack : player.getInventory().items) {
-            if (stack.getItem() instanceof IUpgradeItem upgradeItem) {
-                Upgrade upgradeType = upgradeItem.getUpgradeType(stack);
-                count += stack.getCount();
-            }
-        }
-        return count;
-    }
-
     private static boolean hasEnoughUpgrades(Player player, Map<Upgrade, Integer> required) {
         Map<Upgrade, Integer> available = new EnumMap<>(Upgrade.class);
         for (ItemStack stack : player.getInventory().items) {
@@ -295,18 +284,5 @@ public class MemoryCard extends Item {
             }
         }
         return new ArrayList<>(machines);
-    }
-
-    private static String upgradeKeyToSimpleName(Upgrade upgrade) {
-        return switch (upgrade) {
-            case SPEED -> "速度升级";
-            case ENERGY -> "能源升级";
-            case FILTER -> "过滤升级";
-            case GAS -> "化学升级";
-            case MUFFLING -> "降噪升级";
-            case ANCHOR -> "锚点升级";
-            case STONE_GENERATOR -> "石头生成升级";
-            default -> upgrade.getRawName();
-        };
     }
 }
