@@ -1,0 +1,24 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "equipment",
+  "key": {
+    "1": {
+      "tag": "forge:alloys/ultimate"
+    },
+    "2": {
+      "tag": "forge:circuits/ultimate"
+    },
+    "3": {
+      "item": "mekanism:configuration_card"
+    }
+  },
+  "pattern": [
+    "121",
+    "232",
+    "121"
+  ],
+  "result": {
+    "item": "mekanism_card:mass_upgrade_configurator"
+  },
+  "show_notification": true
+}
