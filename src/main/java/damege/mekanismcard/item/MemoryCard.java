@@ -60,12 +60,11 @@ public class MemoryCard extends Item {
 
     public static void handleCopyStatic(Level level, BlockPos pos, Player player, ItemStack stack) {
         BlockEntity be = level.getBlockEntity(pos);
-        if (!(be instanceof IConfigCardAccess)) {
+        if (!(be instanceof IConfigCardAccess machine)) {
             player.displayClientMessage(Component.translatable("message.mekanism_card.memory_card.not_mekanism").withStyle(ChatFormatting.RED), false);
             return;
         }
 
-        IConfigCardAccess machine = (IConfigCardAccess) be;
         Block targetBlock = level.getBlockState(pos).getBlock();
         CompoundTag tag = new CompoundTag();
         ListTag upgradeList = new ListTag();
@@ -185,12 +184,10 @@ public class MemoryCard extends Item {
                         int current = upgradeComp.getUpgrades(upgrade);
                         int toAdd = Math.min(targetLevel - current, upgrade.getMax() - current);
                         if (toAdd > 0) {
-                            int added = upgradeComp.addUpgrades(upgrade, toAdd);
-                            if (added > 0) {
-                                affected = true;
-                                if (!isCreative) {
-                                    consumedUpgrades.put(upgrade, consumedUpgrades.getOrDefault(upgrade, 0) + added);
-                                }
+                            upgradeComp.addUpgrades(upgrade, current + toAdd);
+                            affected = true;
+                            if (!isCreative) {
+                                consumedUpgrades.put(upgrade, consumedUpgrades.getOrDefault(upgrade, 0) + toAdd);
                             }
                         }
                     }
